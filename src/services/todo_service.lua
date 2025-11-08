@@ -17,13 +17,16 @@ end
 
 function operations:read_todo(name)
     -- Read todo value (done) only if it exists
+    name = string.sub(name, 5)
+    name = name and name:match("^%s*(.-)%s*$") or ""
+
     if self.todos[name] then
-        return self.todos[name]
+        print(string.format("%-20s [%s]", name, self.todos[name].done and "done" or "pending"))
     end
     return nil
 end
 
-function operations:update_todo(name)
+function operations:_update_todo(name)
     -- Toggle todo
     if self.todos[name] then
         self.todos[name].done = not self.todos[name].done
@@ -32,7 +35,7 @@ function operations:update_todo(name)
     return nil
 end
 
-function operations:delete_todo(name)
+function operations:_delete_todo(name)
     -- Delete todo only if it exists otherwise just return false indicating operation unsuccessful
     if self.todos[name] then
         self.todos[name] = nil
