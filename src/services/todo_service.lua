@@ -3,14 +3,16 @@ local operations = {
 }
 
 function operations:create_todo(name)
-    --this is one todo object which has two fields name (key) and done (value)
-    local todo = {
-        name = name,
+    -- Check if todo already exists
+    if self.todos[name] then
+        return false
+    end
+
+    -- The todo object added to the main table operations
+    self.todos[name] = {
         done = false
     }
-    --the todo object added to the main table operations
-    self.todos[name] = todo
-    return todo
+    return true
 end
 
 function operations:read_todo(name)
@@ -19,11 +21,15 @@ function operations:read_todo(name)
         return self.todos[name]
     end
     return nil
-    
 end
 
-function operations:update_todo()
-    -- Update todo
+function operations:update_todo(name)
+    -- Toggle todo
+    if self.todos[name] then
+        self.todos[name].done = not self.todos[name].done
+        return true
+    end
+    return nil
 end
 
 function operations:delete_todo(name)
