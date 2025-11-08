@@ -724,24 +724,3 @@ tween.Completed:Connect(function()
     print("Tween finished")
 end)
 ```
-
-## 15. Quick Reference
-
-**Common gotchas for JS devs:**
-
-| JavaScript | Lua |
-| | |
-| `arr[0]` | `arr[1]` (1-indexed!) |
-| `arr.length` | `#arr` |
-| `str.length` | `#str` |
-| `x++` | `x = x + 1` |
-| `x += 5` | `x = x + 5` |
-| `x && y` | `x and y` |
-| `!x` | `not x` |
-| `x !== y` | `x ~= y` |
-| `str + str2` | `str .. str2` |
-| `null`/`undefined` | `nil` |
-| `console.log()` | `print()` or `warn()` |
-| `function() {}` | `function() end` |
-| `if () {}` | `if then end` |
-| `for () {}` | `for do end` |
