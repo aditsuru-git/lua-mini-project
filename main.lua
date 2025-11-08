@@ -1,1 +1,0 @@
--- Main entery point for the app

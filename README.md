@@ -1,6 +1,6 @@
 # Lua Crash Course (For JavaScript Developers)
 
-**Lua is like JavaScript's simpler cousin. Let me map everything 1:1.**
+**Lua is like JavaScript's simpler cousin. Let's map everything 1:1.**
 
 ## 1. Variables & Data Types
 
