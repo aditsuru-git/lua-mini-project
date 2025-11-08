@@ -3,6 +3,7 @@ local io_service = {}
 function io_service.take_str_input()
     -- Take string input from user
     while true do
+        io.write("> ")
         local user_input = io.read()
         local trimmed = user_input:match("^%s*(.-)%s*$")
         if trimmed ~= "" then
