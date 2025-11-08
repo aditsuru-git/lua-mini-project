@@ -43,6 +43,9 @@ end
 
 function operations:list_todos()
     -- List all todos
+    for name, todo in pairs(self.todos) do
+        print(string.format("%-20s [%s]", name, todo.done and "done" or "pending"))
+    end
 end
 
 return operations
