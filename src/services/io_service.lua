@@ -15,13 +15,13 @@ end
 function io_service.display_help()
     -- Print help
     print(string.rep("-", 40))
-    print(" help           → show command list")
-    print(" todos          → list all todos")
-    print(" create         → create a new todo")
-    print(" read <name>    → read an existing todo")
-    print(" update <name>  → update an existing todo")
-    print(" delete <name>  → delete an existing todo")
-    print(" exit           → exit the application")
+    print(" help           - show command list")
+    print(" todos          - list all todos")
+    print(" create <name>  - create a new todo")
+    print(" read <name>    - read an existing todo")
+    print(" update <name>  - update an existing todo")
+    print(" delete <name>  - delete an existing todo")
+    print(" exit           - exit the application")
     print(string.rep("-", 40))
 end
 
