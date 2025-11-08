@@ -5,7 +5,7 @@ function io_service.take_str_input()
 end
 
 function io_service.display_help()
-    -- Pring help
+    -- Print help
 end
 
 return io_service

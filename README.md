@@ -35,15 +35,15 @@ local nothing = nil  -- Lua has only nil (no null/undefined distinction)
 
 ## 2. Data Types
 
-| JavaScript | Lua | Notes |
-| | - | -- |
-| `string` | `string` | Same |
-| `number` | `number` | Only one number type (no int/float distinction) |
-| `boolean` | `boolean` | Same |
-| `null`/`undefined` | `nil` | Only one "nothing" value |
-| `object` | `table` | Tables are everything (arrays + objects + classes) |
-| `array` | `table` | Arrays are tables with numeric keys |
-| `function` | `function` | Same |
+| JavaScript           | Lua        | Notes                                              |
+| -------------------- | ---------- | -------------------------------------------------- |
+| `string`             | `string`   | Same                                               |
+| `number`             | `number`   | Only one number type (no int/float distinction)    |
+| `boolean`            | `boolean`  | Same                                               |
+| `null` / `undefined` | `nil`      | Only one “nothing” value                           |
+| `object`             | `table`    | Tables are everything (arrays + objects + classes) |
+| `array`              | `table`    | Arrays are tables with numeric keys                |
+| `function`           | `function` | Same                                               |
 
 ## 3. Strings
 
@@ -256,13 +256,13 @@ local result = x > 10 and "big" or "small"
 
 **Logical operators:**
 
-| JavaScript | Lua |
-| - | |
-| `&&` | `and` |
-| `\|\|` | `or` |
-| `!` | `not` |
-| `===` | `==` (Lua only has ==, no ===) |
-| `!==` | `~=` |
+| JavaScript | Lua                                |
+| ---------- | ---------------------------------- |
+| `&&`       | `and`                              |
+| `\|\|`     | `or`                               |
+| `!`        | `not`                              |
+| `===`      | `==` (Lua only has `==`, no `===`) |
+| `!==`      | `~=`                               |
 
 ```lua
 if x > 5 and x < 10 then
