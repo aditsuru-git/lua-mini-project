@@ -95,9 +95,9 @@ string.len("hello")        -- 5 (same as #"hello")
 
 ```javascript
 const player = {
-	name: "Adi",
-	level: 10,
-	isAlive: true,
+  name: "Adi",
+  level: 10,
+  isAlive: true,
 };
 
 console.log(player.name); // "Adi"
@@ -165,13 +165,13 @@ table.concat(arr, ", ")     -- "10, 15, 30, 40" (join array)
 
 ```javascript
 function greet(name) {
-	return "Hello, " + name;
+  return "Hello, " + name;
 }
 
 const greet2 = (name) => "Hello, " + name;
 
 function sum(...numbers) {
-	return numbers.reduce((a, b) => a + b, 0);
+  return numbers.reduce((a, b) => a + b, 0);
 }
 ```
 
@@ -206,7 +206,7 @@ print(sum(1, 2, 3, 4))  -- 10
 
 ```javascript
 function getDimensions() {
-	return [100, 200]; // Return array
+  return [100, 200]; // Return array
 }
 const [width, height] = getDimensions();
 ```
@@ -228,11 +228,11 @@ print(width, height)  -- 100  200
 
 ```javascript
 if (x > 10) {
-	console.log("big");
+  console.log("big");
 } else if (x > 5) {
-	console.log("medium");
+  console.log("medium");
 } else {
-	console.log("small");
+  console.log("small");
 }
 
 const result = x > 10 ? "big" : "small";
@@ -303,7 +303,7 @@ if nil then print("nope") end              -- Doesn't print
 
 ```javascript
 for (let i = 1; i <= 10; i++) {
-	console.log(i);
+  console.log(i);
 }
 ```
 
@@ -330,7 +330,7 @@ end
 ```javascript
 const items = ["a", "b", "c"];
 for (let i = 0; i < items.length; i++) {
-	console.log(items[i]);
+  console.log(items[i]);
 }
 
 items.forEach((item) => console.log(item));
@@ -359,7 +359,7 @@ end
 ```javascript
 const player = { name: "Adi", level: 10 };
 for (const key in player) {
-	console.log(key, player[key]);
+  console.log(key, player[key]);
 }
 ```
 
@@ -385,8 +385,8 @@ end
 ```javascript
 let i = 0;
 while (i < 10) {
-	console.log(i);
-	i++;
+  console.log(i);
+  i++;
 }
 ```
 
@@ -407,8 +407,8 @@ end
 ```javascript
 let i = 0;
 do {
-	console.log(i);
-	i++;
+  console.log(i);
+  i++;
 } while (i < 10);
 ```
 
@@ -450,11 +450,11 @@ until i >= 10  -- Condition is INVERTED (runs until true)
 let x = 10; // Block scope
 
 function test() {
-	let y = 20; // Function scope
-	if (true) {
-		let z = 30; // Block scope
-	}
-	// console.log(z);  // Error (z not accessible)
+  let y = 20; // Function scope
+  if (true) {
+    let z = 30; // Block scope
+  }
+  // console.log(z);  // Error (z not accessible)
 }
 ```
 
@@ -485,14 +485,14 @@ globalVar = 100  -- Accessible everywhere (avoid this!)
 
 ```javascript
 class Player {
-	constructor(name, health) {
-		this.name = name;
-		this.health = health;
-	}
+  constructor(name, health) {
+    this.name = name;
+    this.health = health;
+  }
 
-	takeDamage(amount) {
-		this.health -= amount;
-	}
+  takeDamage(amount) {
+    this.health -= amount;
+  }
 }
 
 const player = new Player("Adi", 100);
@@ -537,13 +537,13 @@ print(player.health)  -- 80
 // CombatTimings.js
 export const M1_COOLDOWN = 0.5;
 export function calculateDamage(power) {
-	return power * 10;
+  return power * 10;
 }
 
 // Or
 module.exports = {
-	M1_COOLDOWN: 0.5,
-	calculateDamage: (power) => power * 10,
+  M1_COOLDOWN: 0.5,
+  calculateDamage: (power) => power * 10,
 };
 
 // Usage
@@ -576,11 +576,11 @@ local dmg = Timings.calculateDamage(5)  -- 50
 
 ```javascript
 try {
-	throw new Error("Something broke");
+  throw new Error("Something broke");
 } catch (error) {
-	console.error(error.message);
+  console.error(error.message);
 } finally {
-	console.log("Cleanup");
+  console.log("Cleanup");
 }
 ```
 
@@ -662,65 +662,92 @@ for i, player in ipairs(players) do
 end
 ```
 
-## 14. Roblox-Specific Lua
+## 14. The `:` vs `.` Distinction
 
-### Wait/Delay:
+### The Fundamental Rule
 
-```lua
-task.wait(1)  -- Sleep for 1 second (new way, use this)
-wait(1)       -- Old way (deprecated, avoid)
-
-task.delay(2, function()
-    print("Runs after 2 seconds")
-end)
-
-task.spawn(function()
-    print("Runs in parallel, doesn't block")
-end)
-```
-
-### Events:
+**In Lua/Luau, `:` is syntactic sugar for passing `self` as the first parameter.**
 
 ```lua
--- Connect to event (like addEventListener)
-part.Touched:Connect(function(otherPart)
-    print("Touched:", otherPart.Name)
-end)
+-- These are IDENTICAL:
+object:method(arg1, arg2)
+object.method(object, arg1, arg2)
 
--- Wait for event (blocking)
-part.Touched:Wait()
-print("This runs after part is touched")
-
--- Once (auto-disconnects)
-local connection = part.Touched:Connect(function(otherPart)
-    print("Touched once")
-    connection:Disconnect()
-end)
+-- The : automatically passes 'object' as first parameter
 ```
 
-### Services:
+### When to Use `:` vs `.`
+
+| Use `:`                                               | Use `.`                                             |
+| ----------------------------------------------------- | --------------------------------------------------- |
+| Calling instance methods (needs access to the object) | Calling static functions (doesn't need an instance) |
+| Defining methods that operate on `self`               | Defining constructors or utility functions          |
+
+**Examples:**
 
 ```lua
-local Players = game:GetService("Players")
-local TweenService = game:GetService("TweenService")
-local RunService = game:GetService("RunService")
+-- Module/Class definition
+local Player = {}
+Player.__index = Player
 
--- Always use :GetService(), not game.Players
+-- Use . for constructor (doesn't have 'self' yet, creates it)
+function Player.new(name, health)
+    local self = setmetatable({}, Player)
+    self.name = name
+    self.health = health
+    return self
+end
+
+-- Use : for methods (needs 'self' to access instance data)
+function Player:takeDamage(amount)
+    self.health = self.health - amount  -- 'self' is passed automatically
+end
+
+function Player:isAlive()
+    return self.health > 0
+end
+
+-- Use . for static utilities (no instance needed)
+function Player.calculateMaxHealth(level)
+    return 100 + (level * 10)  -- No 'self' involved
+end
+
+-- Usage
+local player = Player.new("Adi", 100)  -- . because 'new' is static
+player:takeDamage(20)                  -- : because method needs 'self'
+print(player:isAlive())                -- : because method needs 'self'
+local maxHP = Player.calculateMaxHealth(5)  -- . because static utility
 ```
 
-### Tweening (Animations):
+### Behind the Scenes (What Really Happens)
 
 ```lua
-local TweenService = game:GetService("TweenService")
+-- When you write:
+player:takeDamage(20)
 
-local part = workspace.Part
-local goal = {Position = Vector3.new(0, 10, 0), Transparency = 0.5}
-local info = TweenInfo.new(2, Enum.EasingStyle.Bounce)
-
-local tween = TweenService:Create(part, info, goal)
-tween:Play()
-
-tween.Completed:Connect(function()
-    print("Tween finished")
-end)
+-- Lua translates it to:
+player.takeDamage(player, 20)
+-- The first 'player' is looked up as a key
+-- The second 'player' is passed as the first argument
 ```
+
+**Mental model:** `:` = "call this function AND pass the left side as the first argument"
+
+### Common Mistake
+
+```lua
+-- WRONG: Using : for constructor
+function Player:new(name)
+    -- 'self' here is undefined/wrong, you're CREATING self, not receiving it
+    local self = setmetatable({}, Player)  -- Confusing!
+    return self
+end
+
+-- CORRECT: Use . for constructor
+function Player.new(name)
+    local self = setmetatable({}, Player)  -- Clear: we're making self
+    return self
+end
+```
+
+**Rule of thumb:** If the function CREATES the object, use `.`. If it USES the object, use `:`.
